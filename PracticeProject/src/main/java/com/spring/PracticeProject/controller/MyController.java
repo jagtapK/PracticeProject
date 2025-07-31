@@ -86,12 +86,13 @@ public ResponseEntity<List<Student>> getAllStudent(){
     List<Student> sortedList = new ArrayList<>();
     for(Student s :stu){
 
-        if(city.equals(s.getCity())) {
+        if(city.equalsIgnoreCase(s.getCity())) {
             sortedList.add(s);
         }
     }
     return new ResponseEntity<>(sortedList, HttpStatus.OK);
     }
+
 
 
 }
