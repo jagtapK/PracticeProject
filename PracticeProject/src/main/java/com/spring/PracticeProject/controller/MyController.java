@@ -113,5 +113,12 @@ public ResponseEntity<List<Student>> getAllStudent(){
         }
     }
 
+    // this @RequestBody annotation will help to show our data from potman to application(console)
+    @PostMapping("/addStudent")
+    public ResponseEntity<String> addStudent(@RequestBody Student stu){
 
+    System.out.println("Student Details: "+  stu);
+
+    return new ResponseEntity<>("Data Save Successfully" ,HttpStatus.CREATED);
+}
 }
