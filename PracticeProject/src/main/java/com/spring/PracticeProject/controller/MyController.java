@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.lang.model.element.Name;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -113,6 +114,7 @@ public ResponseEntity<List<Student>> getAllStudent(){
         }
     }
 
+    // get one student data
     // this @RequestBody annotation will help to show our data from potman to application(console)
     @PostMapping("/addStudent")
     public ResponseEntity<String> addStudent(@RequestBody Student stu){
@@ -120,5 +122,17 @@ public ResponseEntity<List<Student>> getAllStudent(){
     System.out.println("Student Details: "+  stu);
 
     return new ResponseEntity<>("Data Save Successfully" ,HttpStatus.CREATED);
+}
+
+// get List of student
+
+@PostMapping("/getStudent")
+public ResponseEntity<String> getAllStudent(@RequestBody List<Student> studentList){
+
+    System.out.println("Student list: "+ studentList);
+    for(Student s : studentList){
+        System.out.println(s);
+    }
+    return new ResponseEntity<>("Student List save successfully",HttpStatus.CREATED);
 }
 }
