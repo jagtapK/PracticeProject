@@ -1,0 +1,97 @@
+package com.spring.PracticeProject.controller;
+
+import com.spring.PracticeProject.entity.Student;
+import com.spring.PracticeProject.repo.StudentRepo;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.lang.model.element.Name;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+@RestController
+@RequestMapping("/start")
+public class MyController {
+
+
+@GetMapping("/getStr")
+public ResponseEntity<List<String>> getStr()
+{
+    List<String> str = Arrays.asList("John", "Alice", "Bob", "Tonny");
+    return new ResponseEntity<>(str, HttpStatus.OK);
+}
+
+@GetMapping("/getCase")
+public ResponseEntity<List<String>>getCase()
+{
+    List<String> s1 = Arrays.asList("John", "Alice", "Bob", "Tonny");
+    List<String> name = s1.stream().map(String::toLowerCase).toList();
+
+    return new ResponseEntity<>(name, HttpStatus.OK);
+}
+
+@GetMapping("/getAllStudent")
+public ResponseEntity<List<Student>> getAllStudent(){
+    List<Student> s = StudentRepo.getAllStudent();
+    return new ResponseEntity<>(s, HttpStatus.OK);
+}
+
+// get list of student by id
+
+    @GetMapping("/getById/{id}")
+   public ResponseEntity<Student> getById(@PathVariable("id") int id){
+
+    List<Student> stu = StudentRepo.getAllStudent();
+
+    for(Student s1 : stu){
+
+        if(id == s1.getId()){
+            return new ResponseEntity<>(s1, HttpStatus.OK);
+        }
+    }
+    Student s1 = new Student();
+    return new ResponseEntity<>(s1, HttpStatus.NOT_FOUND);
+   }
+
+   // get Student by Name
+
+    @GetMapping("/getByName/{name}")
+    public ResponseEntity<Student> getByName(@PathVariable("name") String name){
+    List<Student> s = StudentRepo.getAllStudent();
+
+    for(Student s1 : s){
+
+        if(name.equals(s1.getName())){
+            return new ResponseEntity<>(s1, HttpStatus.OK);
+        }
+
+    }
+    Student s2 = new Student();
+    return new ResponseEntity<>(s2, HttpStatus.NOT_FOUND);
+    }
+
+    // get student by city
+    // get list of student by city
+
+    @GetMapping("/getByCity/{city}")
+    public ResponseEntity<List<Student>> getByCity(@PathVariable("city") String city){
+
+    List<Student> stu = StudentRepo.getAllStudent();
+
+    List<Student> sortedList = new ArrayList<>();
+    for(Student s :stu){
+
+        if(city.equals(s.getCity())) {
+            sortedList.add(s);
+        }
+    }
+    return new ResponseEntity<>(sortedList, HttpStatus.OK);
+    }
+
+
+}
