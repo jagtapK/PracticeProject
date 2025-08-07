@@ -2,11 +2,11 @@ package com.spring.PracticeProject.entity;
 
 public class Student {
 
-private int id;
-private String name;
+    private int id;
+    private String name;
 
-private String city;
-private int marks;
+    private String city;
+    private int marks;
 
 
     public Student() {
